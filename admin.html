@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel administracyjny</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <h1>Panel administracyjny SmartFix</h1>
+  </header>
+
+  <section>
+    <div id="logowanie">
+      <h2>Zaloguj się</h2>
+      <input type="password" id="haslo" placeholder="Wpisz hasło" />
+      <button onclick="sprawdzHaslo()">Zaloguj</button>
+    </div>
+
+    <div id="panelAdmina" style="display:none;">
+      <h2>Edytuj dane kontaktowe</h2>
+      <label>Telefon: <input type="text" id="telAdmin"/></label><br/>
+      <label>Email: <input type="text" id="emailAdmin"/></label><br/>
+      <button onclick="zapiszDane()">Zapisz</button>
+      <p id="potwierdzenie" style="color:green;"></p>
+    </div>
+  </section>
+
+  <script>
+    function sprawdzHaslo() {
+      const haslo = document.getElementById('haslo').value;
+      if (haslo === "smartfix2025") {
+        document.getElementById('logowanie').style.display = "none";
+        document.getElementById('panelAdmina').style.display = "block";
+        // Załaduj aktualne dane
+        document.getElementById('telAdmin').value = localStorage.getItem("telefon") || "501 808 926";
+        document.getElementById('emailAdmin').value = localStorage.getItem("email") || "smartfixserwis.pl@gmail.com";
+      } else {
+        alert("Błędne hasło!");
+      }
+    }
+
+    function zapiszDane() {
+      const tel = document.getElementById('telAdmin').value;
+      const email = document.getElementById('emailAdmin').value;
+      localStorage.setItem("telefon", tel);
+      localStorage.setItem("email", email);
+      document.getElementById('potwierdzenie').innerText = "Dane zapisane!";
+    }
+  </script>
+</body>
+</html>
